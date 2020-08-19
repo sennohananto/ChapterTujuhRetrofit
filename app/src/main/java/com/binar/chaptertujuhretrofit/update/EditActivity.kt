@@ -6,9 +6,11 @@ import android.widget.Toast
 import com.binar.chaptertujuhretrofit.R
 import com.binar.chaptertujuhretrofit.pojo.GetPersonsResponse
 import kotlinx.android.synthetic.main.activity_edit.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class EditActivity : AppCompatActivity(), UpdatePersonPresenter.Listener {
-    private lateinit var presenter: UpdatePersonPresenter
+    val presenter: UpdatePersonPresenter by inject { parametersOf(this) }
     private lateinit var result: GetPersonsResponse.Result
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +20,6 @@ class EditActivity : AppCompatActivity(), UpdatePersonPresenter.Listener {
         intent.getParcelableExtra<GetPersonsResponse.Result>("PERSON")?.let {
             result = it
         }
-
-        presenter = UpdatePersonPresenter(this)
 
         etFirstName.setText(result.firstName)
         etLastName.setText(result.lastName)

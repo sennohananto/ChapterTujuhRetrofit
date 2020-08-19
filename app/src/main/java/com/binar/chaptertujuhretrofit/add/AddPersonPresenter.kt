@@ -2,12 +2,12 @@ package com.binar.chaptertujuhretrofit.add
 
 import com.binar.chaptertujuhretrofit.pojo.PostPersonBody
 import com.binar.chaptertujuhretrofit.pojo.PostPersonResponse
-import com.binar.chaptertujuhretrofit.network.ApiClient
+import com.binar.chaptertujuhretrofit.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddPersonPresenter(val listener: Listener) {
+class AddPersonPresenter(val listener: Listener, val apiService: ApiService) {
 
     fun addPerson(firstName : String, lastName: String){
 //        val jsonBody = JSONObject()
@@ -20,7 +20,7 @@ class AddPersonPresenter(val listener: Listener) {
                 lastName
             )
 
-        ApiClient.instance.addPerson(person).enqueue(object : Callback<PostPersonResponse> {
+        apiService.addPerson(person).enqueue(object : Callback<PostPersonResponse> {
             override fun onFailure(call: Call<PostPersonResponse>, t: Throwable) {
                 listener.onAddPersonFailure(t.toString())
             }

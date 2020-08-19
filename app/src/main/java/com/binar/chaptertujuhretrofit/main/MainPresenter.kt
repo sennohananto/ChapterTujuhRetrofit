@@ -1,17 +1,16 @@
 package com.binar.chaptertujuhretrofit.main
 
 import com.binar.chaptertujuhretrofit.pojo.GetPersonsResponse
-import com.binar.chaptertujuhretrofit.network.ApiClient
+import com.binar.chaptertujuhretrofit.network.ApiService
 import com.binar.chaptertujuhretrofit.pojo.DeletePersonResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainPresenter(val listener: Listener) {
-
+class MainPresenter(val listener: Listener, val apiService: ApiService) {
     fun getPersonList(){
         listener.showProgressBar()
-        ApiClient.instance.getAllPersons().enqueue(object : Callback<GetPersonsResponse> {
+        apiService.getAllPersons().enqueue(object : Callback<GetPersonsResponse> {
             override fun onFailure(call: Call<GetPersonsResponse>, t: Throwable) {
                 t.message?.let {
                     listener.onGetPersonListFailure(it)
@@ -33,7 +32,7 @@ class MainPresenter(val listener: Listener) {
 
     fun deletePerson(result: GetPersonsResponse.Result){
         listener.showProgressBar()
-        ApiClient.instance.deletePerson(result.iD.toString()).enqueue(object : Callback<DeletePersonResponse> {
+        apiService.deletePerson(result.iD.toString()).enqueue(object : Callback<DeletePersonResponse> {
             override fun onFailure(call: Call<DeletePersonResponse>, t: Throwable) {
                 t.message?.let {
                     listener.onPersonDeleteFailed(it)

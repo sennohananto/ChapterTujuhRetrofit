@@ -11,14 +11,16 @@ import com.binar.chaptertujuhretrofit.pojo.GetPersonsResponse
 import com.binar.chaptertujuhretrofit.R
 import com.binar.chaptertujuhretrofit.update.EditActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 
 class MainActivity : AppCompatActivity(), MainPresenter.Listener {
-    private lateinit var presenter: MainPresenter
+    val presenter: MainPresenter by inject{parametersOf(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter = MainPresenter(this)
         presenter.getPersonList()
 
         fabAddActivity.setOnClickListener {
