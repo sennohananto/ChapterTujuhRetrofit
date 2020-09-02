@@ -10,9 +10,6 @@ import retrofit2.Response
 class AddPersonPresenter(val listener: Listener, val apiService: ApiService) {
 
     fun addPerson(firstName : String, lastName: String){
-//        val jsonBody = JSONObject()
-//        jsonBody.put("first_name", firstName)
-//        jsonBody.put("last_name", lastName)
 
         val person =
             PostPersonBody(
